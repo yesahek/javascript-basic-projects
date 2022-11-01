@@ -72,3 +72,66 @@ const menu = [
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
 ];
+
+const sectionCenter = document.querySelector('.section-center');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+// load items
+
+window.addEventListener('DOMContentLoaded', function(){
+//console.log("check");
+// let displyMenu = menu.map(function (item) {
+  
+//   return `<article class="menu-item">
+//   <img src="${item.img}" class="photo" alt="${item.title}">
+//   <div class="item-info">
+//     <header>
+//       <h4>${item.title}</h4>
+//       <h4 class="price">${item.price}</h4>
+//     </header>
+//     <p class="item-text">${item.desc}</p>
+//   </div>
+// </article>`;
+//});
+// displyMenu = displyMenu.join("");
+// //console.log(displyMenu);
+// sectionCenter.innerHTML = displyMenu;
+
+displyMenuItems(menu);
+});
+
+//filter items
+
+filterBtns.forEach(function (btn ) {
+  btn.addEventListener("click", function (e) {
+    //console.log(e.currentTarget.dataset.id);
+    const category = e.currentTarget.dataset.id;
+    const menuCategory = menu.filter(function(menuItem){
+      //console.log(menuItem);
+      if(menuItem.category === category){
+        return menuItem;
+      }
+     });  
+  if (category === 'all'){
+    displyMenuItems(menu);
+  }else {
+    displyMenuItems(menuCategory);
+  }
+});
+});
+function displyMenuItems(menuItem){
+  let displyMenu = menuItem.map(function (item) {
+  return `<article class="menu-item">
+  <img src="${item.img}" class="photo" alt="${item.title}">
+  <div class="item-info">
+    <header>
+      <h4>${item.title}</h4>
+      <h4 class="price">${item.price}</h4>
+    </header>
+    <p class="item-text">${item.desc}</p>
+  </div>
+</article>`; 
+});
+displyMenu = displyMenu.join("");
+sectionCenter.innerHTML = displyMenu;
+}
